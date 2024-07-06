@@ -1,5 +1,6 @@
-const express = require('express')
+const express = require('express');
 const readline = require('readline');
+const db = require('./db');
 require('dotenv').config();
 const app=express()
 app.use(express.json())
@@ -7,6 +8,16 @@ app.use(express.json())
 //     console.log("We receive the request that is"+req)
 //     res.send("Handle Ticket")
 // })
+// Function to generate a random ticket number
+function generateTicketNumber() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let ticketNumber = '';
+    for (let i = 0; i < 10; i++) { // Adjust the length as needed
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        ticketNumber += characters[randomIndex];
+    }
+    return ticketNumber;
+}
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -20,6 +31,8 @@ const corsOptions = {
     credentials: true,
     optionSuccessStatus: 200
 }
+
+
 app.use(cors(corsOptions));
 app.post("/api/solve", (req, res)=>{
     currentReq = req;
