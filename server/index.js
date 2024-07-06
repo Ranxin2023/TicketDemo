@@ -1,4 +1,6 @@
-const express=require('express')
+const express = require('express')
+const readline = require('readline');
+require('dotenv').config();
 const app=express()
 app.use(express.json())
 // app.get("/api/tickets", (req, res)=>{
@@ -6,6 +8,19 @@ app.use(express.json())
 //     res.send("Handle Ticket")
 // })
 
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+const cors = require('cors');
+// client web address certificated by cors
+const corsOptions = {
+    origin: [ 'http://localhost:3000'],
+    credentials: true,
+    optionSuccessStatus: 200
+}
+app.use(cors(corsOptions));
 app.post("/api/solve", (req, res)=>{
     currentReq = req;
     currentRes = res;
