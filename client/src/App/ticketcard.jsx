@@ -70,19 +70,19 @@ const TicketCard=()=>{
                 ))}
                 </select>
                 <hr></hr>
+                <div><b> Description: </b> </div>
                 <div className="ticket-card-description">
-                    <div><b> Description: </b> </div>
                     <textarea
-                    value=""
+                    value={description}
                     onChange={handleDescription}
                     placeholder="Enter a description"/>
                     {/* <div className="description_text">{description}</div> */}
                 </div>
                 <hr></hr>
+                <div><b> Address: </b></div>
                 <div className="ticket-card-address">
-                    <div><b> Address: </b></div>
                     <textarea
-                    value=""
+                    value={address}
                     onChange={handleAddress}
                     placeholder="Enter an address"/>
                 </div>

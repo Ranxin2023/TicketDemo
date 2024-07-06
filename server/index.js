@@ -34,17 +34,32 @@ const corsOptions = {
 
 
 app.use(cors(corsOptions));
-app.post("/api/solve", (req, res)=>{
+app.post("/api/solve", async (req, res)=>{
+    const { month, day, year, description, address } = req.body;
     currentReq = req;
     currentRes = res;
     console.log("Received data:", req.body);
     console.log("Please enter the solution:");
+    // Generate a random ticket number
+    const ticketNumber = generateTicketNumber();
 
+    try {
+        // Insert data into MySQL database
+        const [result] = await db.execute(
+            'INSERT INTO tickets (ticket_id, month, day, year, description, address) VALUES (?, ?, ?, ?, ?, ?)',
+            [ticketNumber, month, day, year, description, address]
+        );
+        console.log("Insert successfully")
+        rl.question('Solution: ', (answer) => {
+            // Send back the solution as the response
+            res.json({ solution: answer });
+        });
+    } catch (error) {
+        console.error('Error storing data in the database:', error);
+        res.status(500).send('Internal Server Error');
+    }
     // Prompt the server-side user for input
-    rl.question('Solution: ', (answer) => {
-        // Send back the solution as the response
-        res.json({ solution: answer });
-    });
+    
 })
 
 
