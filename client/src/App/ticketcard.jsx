@@ -13,6 +13,11 @@ const TicketCard=()=>{
     const [description, setDescription]=useState("")
     const [address, setAddress]=useState("")
     const [response, setResponse] = useState("");
+    const months = [
+        "January", "February", "March", "April", "May", "June", 
+        "July", "August", "September", "October", "November", "December"
+    ];
+
     const handleDay=(event)=>{
         setDay(event.target.value)
     }
@@ -42,48 +47,44 @@ const TicketCard=()=>{
     return (
         <div className="ticket-card">
             <form onSubmit={handleSubmit}>
-                <div>Issue/Ticket</div>
-                <div>Date: </div>
-                <label htmlFor="">Month:</label>
+                <h1><b>Ticket Card</b></h1>
+                <hr></hr>
+                {/* <div>Date: </div> */}
+                <label htmlFor=""><b>Date:</b> Month: </label>
                 <select id="month-select" value={month} onChange={handleMonth}>
-                    <option value="January">January</option>
-                    <option value="Feburary">Feburary</option>
-                    <option value="March">March</option>
-                    <option value="April">April</option>
-                    <option value="May">May</option>
-                    <option value="June">June</option>
-                    <option value="July">July</option>
-                    <option value="August">August</option>
-                    <option value="September">September</option>
-                    <option value="October">October</option>
-                    <option value="November">November</option>
-                    <option value="December">December</option>
-                </select>
-
-                <label htmlFor="Day">Day:</label>
-                <select name="" id="" value={day} onChange={handleDay}>
-                    {Array.from({length:31}, (_, i)=>(
-                        <option value={i+1}>{i+1}</option>
+                    {months.map((monthName, index) => (
+                        <option key={index} value={monthName}>{monthName}</option>
                     ))}
                 </select>
-                <label htmlFor="Year">Year: </label>
-                <select id="year-select" value={year} onClick={handleYear}>
+                
+                <label htmlFor="Day"> Day: </label>
+                <select name="" id="" value={day} onChange={handleDay}>
+                    {Array.from({length:31}, (_, i)=>(
+                        <option key={i+1} value={i+1}>{i+1}</option>
+                    ))}
+                </select>
+                <label htmlFor="Year"> Year: </label>
+                <select id="year-select" value={year} onChange={handleYear}>
                 {Array.from({ length: 5 }, (_, i) => (
                     <option key={year-1 + i} value={year-1 + i}>{year-1 + i}</option>
                 ))}
                 </select>
+                <hr></hr>
                 <div className="ticket-card-description">
-                    <div>Description: </div>
+                    <div><b> Description: </b> </div>
                     <textarea
+                    value=""
                     onChange={handleDescription}
-                    placeholder="Enter a description"></textarea>
+                    placeholder="Enter a description"/>
                     {/* <div className="description_text">{description}</div> */}
                 </div>
-                <div>Address</div>
+                <hr></hr>
                 <div className="ticket-card-address">
+                    <div><b> Address: </b></div>
                     <textarea
+                    value=""
                     onChange={handleAddress}
-                    placeholder="Enter an address"></textarea>
+                    placeholder="Enter an address"/>
                 </div>
                 <button>Submit</button>
                 {response && (
