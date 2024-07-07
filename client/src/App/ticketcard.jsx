@@ -78,7 +78,7 @@ const TicketCard=()=>{
                     placeholder="Enter a description"/>
                     {/* <div className="description_text">{description}</div> */}
                 </div>
-                <hr></hr>
+                <hr/>
                 <div><b> Address: </b></div>
                 <div className="ticket-card-address">
                     <textarea

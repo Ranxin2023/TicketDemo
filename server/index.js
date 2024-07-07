@@ -34,10 +34,20 @@ const corsOptions = {
 
 
 app.use(cors(corsOptions));
+
+app.get("/api/tickets", async (req, res)=>{
+    try {
+        const [rows] = await db.execute('SELECT * FROM tickets');
+        console.log(rows)
+        res.json(rows);
+    } catch (error) {
+        console.error('Error fetching data from the database:', error);
+        res.status(500).send('Internal Server Error');
+    }
+})
+
 app.post("/api/solve", async (req, res)=>{
     const { month, day, year, description, address } = req.body;
-    currentReq = req;
-    currentRes = res;
     console.log("Received data:", req.body);
     console.log("Please enter the solution:");
     // Generate a random ticket number
